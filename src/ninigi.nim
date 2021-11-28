@@ -1,12 +1,19 @@
-import std/[json, strutils, tables]
+import std/[httpclient, json, strutils, tables]
+
+
+const DEFAULT_API_URL = "https://www.toptal.com/developers/gitignore/api/list?format=json"
 
 
 type
-  Template = ref object of RootObj
+  Template* = ref object of RootObj
     ## Template of language/environment of gitignore.io
     name: string
     contents: seq[string]
-  TemplatesTable = TableRef[string, Template]
+  TemplatesTable* = TableRef[string, Template]
+
+
+proc output*(self: Template): string =
+  result = self.contents.join("\n")
 
 
 proc parseTemplate(src: JsonNode): Template =
@@ -22,5 +29,6 @@ proc parseTemplates(src: JsonNode): TemplatesTable =
     result[key] = parseTemplate(tmpl)
 
 
-when isMainModule:
-  echo("### NINIGI version 0.1.0")
+proc newTemplatesFromWeb*(url: string = DEFAULT_API_URL): TemplatesTable =
+  let data = newHttpClient().get(url).body.parseJson()
+  result = parseTemplates(data)
