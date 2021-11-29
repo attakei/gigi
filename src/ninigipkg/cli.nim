@@ -1,4 +1,4 @@
-import std/[httpclient, json, os, parseopt, tables]
+import std/[httpclient, json, os, parseopt, strutils, tables]
 import core
 import parser
 
@@ -33,6 +33,7 @@ proc main*(): int =
 
   let templates = newTemplatesFromWeb()
   stdout.writeLine("### NINIGI version 0.1.0")
+  stdout.writeLine("### command with: " & targets.join(" "))
   for t in targets:
     if not templates.hasKey(t):
       stdout.writeLine("## '" & t & "' is not exists")
