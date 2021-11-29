@@ -1,6 +1,7 @@
-import std/unittest
+import std/[json, unittest]
 
-include "../src/ninigi.nim"
+import ninigipkg/core
+include ninigipkg/parser
 
 
 let data = parseJson("""{
@@ -17,11 +18,11 @@ let data = parseJson("""{
 test "Parse content":
   let tmpl = parseTemplate(data["nim"])
   check tmpl.name == "Nim"
-  check tmpl.contents.len == 4
+  check tmpl.output.splitLines.len == 4
 
 
 test "Parse contents":
   let tmpls = parseTemplates(data)
   check tmpls.len == 1
   check tmpls["nim"].name == "Nim"
-  check tmpls["nim"].contents.len == 4
+  check tmpls["nim"].output.splitLines.len == 4
