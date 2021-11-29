@@ -6,8 +6,8 @@ description   = "Ninigi Is Nim Implemented Gitignore.io Interface"
 license       = "Apache-2.0"
 srcDir        = "src"
 installExt    = @["nim"]
+bin           = @["ninigi"]
 binDir        = "bin"
-namedBin["cli"] = "ninigi"
 
 
 # Dependencies
