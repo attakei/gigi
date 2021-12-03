@@ -2,11 +2,11 @@
 
 version       = "0.1.0"
 author        = "Kazuya Takei"
-description   = "Ninigi Is Nim Implemented Gitignore.io Interface"
+description   = "GitIgnore Generation Interface"
 license       = "Apache-2.0"
 srcDir        = "src"
 installExt    = @["nim"]
-bin           = @["ninigi"]
+bin           = @["gigi"]
 binDir        = "bin"
 
 

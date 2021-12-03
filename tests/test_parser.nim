@@ -1,7 +1,7 @@
 import std/[json, unittest]
 
-import ninigipkg/core
-include ninigipkg/parser
+import gigipkg/core
+include gigipkg/parser
 
 
 let data = parseJson("""{

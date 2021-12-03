@@ -1,8 +1,8 @@
-import ninigipkg/core
+import gigipkg/core
 
 export core
 
 
 when isMainModule:
-  import ninigipkg/cli
+  import gigipkg/cli
   quit(main())
