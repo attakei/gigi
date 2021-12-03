@@ -1,4 +1,5 @@
-import std/[httpclient, json, os, parseopt, strutils, tables]
+import std/[json, os, parseopt, strutils, tables]
+import pkg/puppy
 import core
 import parser
 
@@ -7,7 +8,7 @@ const DEFAULT_API_URL = "https://www.toptal.com/developers/gitignore/api/list?fo
 
 
 proc newTemplatesFromWeb*(url: string = DEFAULT_API_URL): TemplatesTable =
-  let data = newHttpClient().get(url).body.parseJson()
+  let data = fetch(url).parseJson()
   result = parseTemplates(data)
 
 
