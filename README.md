@@ -21,6 +21,13 @@ If you want to use cli, set your nimble bin directory to `$PATH`.
 
 ```sh
 $ gigi nim
+### GIGI version 0.1.1
+### command with: nim
+
+### Nim ###
+nimcache/
+nimblecache/
+htmldocs/
 ```
 
 ## License
