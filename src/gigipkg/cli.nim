@@ -5,10 +5,14 @@ import parser
 
 
 const DEFAULT_API_URL = "https://www.toptal.com/developers/gitignore/api/list?format=json"
+const DEFAULT_USER_AGENT = "gigi web-client"
 
 
 proc newTemplatesFromWeb*(url: string = DEFAULT_API_URL): TemplatesTable =
-  let data = fetch(url).parseJson()
+  let headers = @[
+    Header(key: "User-Agent", value: DEFAULT_USER_AGENT),
+  ]
+  let data = fetch(url, headers = headers).parseJson()
   result = parseTemplates(data)
 
 
