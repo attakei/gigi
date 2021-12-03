@@ -1,6 +1,7 @@
 import std/[json, os, parseopt, strutils, tables]
 import pkg/puppy
 import core
+import info
 import parser
 
 
@@ -37,7 +38,7 @@ proc main*(): int =
     return 1
 
   let templates = newTemplatesFromWeb()
-  stdout.writeLine("### GIGI version 0.1.0")
+  stdout.writeLine("### " & PKG_NAME & " version " & PKG_VERSION)
   stdout.writeLine("### command with: " & targets.join(" "))
   for t in targets:
     if not templates.hasKey(t):
