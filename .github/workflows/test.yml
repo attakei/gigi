@@ -1,3 +1,5 @@
+name: Test
+
 on:
   workflow_dispatch:
   push:
@@ -6,6 +8,8 @@ on:
       - 'tests/**'
       - '*.nimble'
       - '*.nims'
+    tags-ignore:
+      - '*'
 
 jobs:
   test:
