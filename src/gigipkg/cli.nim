@@ -37,7 +37,7 @@ proc main*(): int =
     return 1
 
   let templates = newTemplatesFromWeb()
-  stdout.writeLine("### NINIGI version 0.1.0")
+  stdout.writeLine("### GIGI version 0.1.0")
   stdout.writeLine("### command with: " & targets.join(" "))
   for t in targets:
     if not templates.hasKey(t):
