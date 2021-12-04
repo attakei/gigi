@@ -37,14 +37,21 @@ proc main*(): int =
     stderr.writeLine("No targets is specified.")
     return 1
 
-  let templates = newTemplatesFromWeb()
-  stdout.writeLine("### " & PKG_NAME & " version " & PKG_VERSION)
-  stdout.writeLine("### command with: " & targets.join(" "))
-  for t in targets:
-    if not templates.hasKey(t):
-      stdout.writeLine("## '" & t & "' is not exists")
-      continue
-    stdout.writeLine("")
-    stdout.writeLine(templates[t].output)
+  try:
+    let templates = newTemplatesFromWeb()
+    stdout.writeLine("### " & PKG_NAME & " version " & PKG_VERSION)
+    stdout.writeLine("### command with: " & targets.join(" "))
+    for t in targets:
+      if not templates.hasKey(t):
+        stdout.writeLine("## '" & t & "' is not exists")
+        continue
+      stdout.writeLine("")
+      stdout.writeLine(templates[t].output)
+  except PuppyError:
+    let ex = getCurrentException()
+    stderr.writeLine("Failured to fetch ignore templates.")
+    stderr.writeLine("Please see error messages and check your environment if you need.")
+    stderr.writeLine("Message: " & ex.msg)
+    return 1
 
   return 0
