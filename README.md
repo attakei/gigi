@@ -9,7 +9,7 @@ GIGI is gitignore.io client library for Nim, included small cli application.
 ## Installation
 
 ```sh
-$ nimble install https://github.com/attakei-lab/gigi
+$ nimble install https://github.com/attakei/gigi
 ```
 
 If you want to use cli, set your nimble bin directory to `$PATH`.
