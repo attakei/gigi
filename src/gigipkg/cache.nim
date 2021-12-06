@@ -31,3 +31,10 @@ proc loadCache*(src: string, ts: Time, expireDays: int = DEFAULT_EXPIRE_DAYS): O
 
   return some(src.readFile())
 
+
+proc loadCache*(expireDays: int = DEFAULT_EXPIRE_DAYS): Option[string] =
+  ## Simply using of ``loadCache``.
+  ## - find default cache path
+  ## - timesampe is current datetime
+  let cachePath = getAppCacheDir() & DirSep & DEFAULT_CACHE_FILE
+  return loadCache(cachePath, now().toTime(), expireDays)
