@@ -7,9 +7,6 @@ on:
       - 'src/**'
       - 'tests/**'
       - '*.nimble'
-      - '*.nims'
-    tags-ignore:
-      - '*'
 
 jobs:
   test:
