@@ -13,9 +13,14 @@ proc getAppCacheDir*(): string =
   return getCacheDir() & DirSep & getAppName()
 
 
+proc saveCache(path, content: string) =
+  path.parentDir().createDir()
+  path.writeFile(content)
+
+
 proc saveCache*(content: string) =
   let cachePath = getAppCacheDir() & DirSep & DEFAULT_CACHE_FILE
-  cachePath.writeFile(content)
+  cachePath.saveCache(content)
 
 
 proc loadCache*(src: string, ts: Time, expireDays: int = DEFAULT_EXPIRE_DAYS): Option[string] =
