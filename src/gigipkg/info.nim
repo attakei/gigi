@@ -1,4 +1,4 @@
 ## Information consts
 const
   PKG_NAME* = "GIGI"
-  PKG_VERSION* = "0.1.1"
+  PKG_VERSION* = "0.2.0"

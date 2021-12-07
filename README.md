@@ -30,7 +30,7 @@ Currently, it have only to output .gitignore contents from templates by argument
 
 ```sh
 $ gigi nim
-### GIGI version 0.1.1
+### GIGI version 0.2.0
 ### command with: nim
 
 ### Nim ###
