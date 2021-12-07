@@ -19,7 +19,7 @@ Windows users can use binary without Nim development environment and MinGW DLLs.
 You can build binary from sources by `nimble`.
 
 ```sh
-$ nimble install https://github.com/attakei/gigi
+$ nimble install gigi
 ```
 
 If you want to use cli, set your nimble bin directory to `$PATH`.
