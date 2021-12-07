@@ -1,20 +1,31 @@
-import std/[json, os, parseopt, strutils, tables]
+import std/[json, options, os, parseopt, strutils, tables]
 import pkg/puppy
-import core
-import info
-import parser
+import cache, core, info, parser
 
 
 const DEFAULT_API_URL = "https://www.toptal.com/developers/gitignore/api/list?format=json"
 const DEFAULT_USER_AGENT = "gigi web-client"
 
 
-proc newTemplatesFromWeb*(url: string = DEFAULT_API_URL): TemplatesTable =
+proc fetchContent(url: string): string =
   let headers = @[
     Header(key: "User-Agent", value: DEFAULT_USER_AGENT),
   ]
-  let data = fetch(url, headers = headers).parseJson()
-  result = parseTemplates(data)
+  return fetch(url, headers = headers)
+
+
+proc newTemplatesFromWeb*(url: string = DEFAULT_API_URL): TemplatesTable =
+  return parseTemplates(fetchContent(url).parseJson())
+
+
+proc newTemplatesFromCache*(url: string = DEFAULT_API_URL): TemplatesTable =
+  let cacheContent = loadCache()
+  if cacheContent.isSome():
+      return parseTemplates(cacheContent.get().parseJson())
+  else:
+    let content = fetchContent(url)
+    saveCache(content)
+    return parseTemplates(content.parseJson())
 
 
 proc parseArgs(params: seq[string]): seq[string] =
@@ -38,7 +49,7 @@ proc main*(): int =
     return 1
 
   try:
-    let templates = newTemplatesFromWeb()
+    let templates = newTemplatesFromCache()
     stdout.writeLine("### " & PKG_NAME & " version " & PKG_VERSION)
     stdout.writeLine("### command with: " & targets.join(" "))
     for t in targets:
