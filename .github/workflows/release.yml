@@ -36,18 +36,14 @@ jobs:
             vm: windows-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Cache choosenim
-        id: cache_choosenim
-        uses: actions/cache@v1
+      - name: Cache Nim resources
+        id: cache_nim
+        uses: actions/cache@v2
         with:
-          path: ~/.choosenim
-          key: choosenim-${{ matrix.vm }}
-      - name: Cache nimble
-        id: cache_nimble
-        uses: actions/cache@v1
-        with:
-          path: ~/.nimble
-          key: nimble-${{ matrix.vm }}
+          path: |
+            ~/.choosenim
+            ~/.nimble
+          key: nimcaches--${{ matrix.vm }}
       - uses: jiro4989/setup-nim-action@v1
         with:
           nim-version: 1.6.0

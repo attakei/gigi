@@ -20,18 +20,14 @@ jobs:
           - '1.6.0'
     steps:
       - uses: actions/checkout@v1
-      - name: Cache choosenim
-        id: cache-choosenim
-        uses: actions/cache@v1
+      - name: Cache Nim resources
+        id: cache_nim
+        uses: actions/cache@v2
         with:
-          path: ~/.choosenim
-          key: ${{ matrix.os }}-choosenim-${{ matrix.nim-version }}
-      - name: Cache nimble
-        id: cache-nimble
-        uses: actions/cache@v1
-        with:
-          path: ~/.nimble
-          key: nimble-${{ matrix.os }}-${{ matrix.nim-version }}
+          path: |
+            ~/.choosenim
+            ~/.nimble
+          key: nimcaches--${{ matrix.os }}-${{ matrix.nim-version }}
       - uses: jiro4989/setup-nim-action@v1
         with:
           nim-version: ${{ matrix.nim-version }}
