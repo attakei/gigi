@@ -1,5 +1,7 @@
 # GIGI
 
+[![Test](https://github.com/attakei/gigi/actions/workflows/test.yml/badge.svg)](https://github.com/attakei/gigi/actions/workflows/test.yml)
+
 GIGI: GitIgnore Generation Interface
 
 ## Overview
