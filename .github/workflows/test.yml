@@ -17,6 +17,7 @@ jobs:
           - ubuntu-latest
           - windows-latest
         nim-version:
+          - '1.4.4'
           - '1.6.0'
     steps:
       - uses: actions/checkout@v1
