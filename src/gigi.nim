@@ -4,5 +4,5 @@ export gitignore
 
 
 when isMainModule:
-  import gigipkg/cli
+  import gigipkg/command
   quit(main())
