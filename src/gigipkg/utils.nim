@@ -1,4 +1,5 @@
-import std/[os, strutils]
+import
+  std/[os, strutils]
 
 
 proc getAppName*(): string =

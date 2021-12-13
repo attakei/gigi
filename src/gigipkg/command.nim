@@ -1,6 +1,7 @@
-import std/[json, options, os, parseopt, strutils, tables]
-import pkg/puppy
-import cache, gitignore, info, parser
+import
+  std/[json, options, os, parseopt, strutils, tables],
+  pkg/puppy,
+  ./cache, ./gitignore, ./info, ./parser
 
 
 const DEFAULT_API_URL = "https://www.toptal.com/developers/gitignore/api/list?format=json"

@@ -1,4 +1,6 @@
-import std/unittest
+import
+  std/unittest
+
 
 include gigipkg/utils
 

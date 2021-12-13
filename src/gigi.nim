@@ -1,8 +1,13 @@
-import gigipkg/gitignore
+import
+  gigipkg/gitignore
+
 
 export gitignore
 
 
 when isMainModule:
-  import gigipkg/command
+  import
+    gigipkg/command
+
+
   quit(main())

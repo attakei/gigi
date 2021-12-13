@@ -1,6 +1,8 @@
-import std/[json, unittest]
+import
+  std/[json, unittest],
+  gigipkg/gitignore
 
-import gigipkg/gitignore
+
 include gigipkg/parser
 
 

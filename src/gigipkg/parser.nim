@@ -1,5 +1,6 @@
-import std/[json, strutils, tables]
-import ./gitignore
+import
+  std/[json, strutils, tables],
+  ./gitignore
 
 
 proc parseGitignore(src: JsonNode): Gitignore =
