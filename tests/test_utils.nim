@@ -1,8 +1,6 @@
 import
-  std/unittest
-
-
-include gigipkg/utils
+  std/unittest,
+  gigipkg/utils {.all.}
 
 
 suite "getAppName":

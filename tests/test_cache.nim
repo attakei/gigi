@@ -1,8 +1,6 @@
 import
-  std/[tempfiles, unittest]
-
-
-include gigipkg/cache
+  std/[options, os, tempfiles, times, unittest],
+  gigipkg/cache {.all.}
 
 
 suite "loadCache":

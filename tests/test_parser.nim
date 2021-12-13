@@ -1,9 +1,6 @@
 import
-  std/[json, unittest],
-  gigipkg/gitignore
-
-
-include gigipkg/parser
+  std/[json, strutils, tables, unittest],
+  gigipkg/gitignore, gigipkg/parser {.all.}
 
 
 let data = parseJson("""{
