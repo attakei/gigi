@@ -1,14 +1,14 @@
 import std/[json, strutils, tables]
-import ./core
+import ./gitignore
 
 
-proc parseTemplate(src: JsonNode): Template =
+proc parseGitignore(src: JsonNode): Gitignore =
   let name = src["name"].getStr()
   let contents = src["contents"].getStr("").strip().splitLines()
-  result = newTemplate(name, contents)
+  result = newGitignore(name, contents)
 
 
-proc parseTemplates*(src: JsonNode): TemplatesTable =
-  result = newTable[string, Template]()
+proc parseGitignoreTable*(src: JsonNode): GitignoreTable =
+  result = newGitignoreTable()
   for key, tmpl in src.pairs:
-    result[key] = parseTemplate(tmpl)
+    result[key] = parseGitignore(tmpl)

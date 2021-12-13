@@ -1,6 +1,6 @@
 import std/[json, unittest]
 
-import gigipkg/core
+import gigipkg/gitignore
 include gigipkg/parser
 
 
@@ -16,13 +16,13 @@ let data = parseJson("""{
 
 
 test "Parse content":
-  let tmpl = parseTemplate(data["nim"])
-  check tmpl.name == "Nim"
-  check tmpl.output.splitLines.len == 4
+  let gi = parseGitignore(data["nim"])
+  check gi.name == "Nim"
+  check gi.output.splitLines.len == 4
 
 
 test "Parse contents":
-  let tmpls = parseTemplates(data)
-  check tmpls.len == 1
-  check tmpls["nim"].name == "Nim"
-  check tmpls["nim"].output.splitLines.len == 4
+  let table = parseGitignoreTable(data)
+  check table.len == 1
+  check table["nim"].name == "Nim"
+  check table["nim"].output.splitLines.len == 4

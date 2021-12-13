@@ -1,6 +1,6 @@
 import std/[json, options, os, parseopt, strutils, tables]
 import pkg/puppy
-import cache, core, info, parser
+import cache, gitignore, info, parser
 
 
 const DEFAULT_API_URL = "https://www.toptal.com/developers/gitignore/api/list?format=json"
@@ -14,18 +14,18 @@ proc fetchContent(url: string): string =
   return fetch(url, headers = headers)
 
 
-proc newTemplatesFromWeb*(url: string = DEFAULT_API_URL): TemplatesTable =
-  return parseTemplates(fetchContent(url).parseJson())
+proc newTemplatesFromWeb*(url: string = DEFAULT_API_URL): GitignoreTable =
+  return parseGitignoreTable(fetchContent(url).parseJson())
 
 
-proc newTemplatesFromCache*(url: string = DEFAULT_API_URL): TemplatesTable =
+proc newTemplatesFromCache*(url: string = DEFAULT_API_URL): GitignoreTable =
   let cacheContent = loadCache()
   if cacheContent.isSome():
-      return parseTemplates(cacheContent.get().parseJson())
+      return parseGitignoreTable(cacheContent.get().parseJson())
   else:
     let content = fetchContent(url)
     saveCache(content)
-    return parseTemplates(content.parseJson())
+    return parseGitignoreTable(content.parseJson())
 
 
 proc parseArgs(params: seq[string]): seq[string] =

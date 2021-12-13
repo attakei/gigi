@@ -1,6 +1,6 @@
-import gigipkg/core
+import gigipkg/gitignore
 
-export core
+export gitignore
 
 
 when isMainModule:
