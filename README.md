@@ -1,5 +1,6 @@
 # GIGI
 
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/attakei/gigi)](https://nimble.directory/pkg/gigi)
 [![Test](https://github.com/attakei/gigi/actions/workflows/test.yml/badge.svg)](https://github.com/attakei/gigi/actions/workflows/test.yml)
 
 GIGI: GitIgnore Generation Interface
@@ -40,6 +41,10 @@ nimcache/
 nimblecache/
 htmldocs/
 ```
+
+## Changelogs
+
+See [CHANGES](./CHANGES.md).
 
 ## License
 
