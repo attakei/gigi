@@ -19,7 +19,7 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           release_name: ${{ github.ref_name }}
-          body: TBD
+          body: If you want, please see changelogs [changelogs](https://github.com/attakei/gigi/blob/development/CHANGES.md)
           draft: false
           prerelease: false
   build:
