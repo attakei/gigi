@@ -13,7 +13,7 @@ proc getAppCacheDir*(): string =
   return getCacheDir() & DirSep & getAppName()
 
 
-proc saveCache(path, content: string) =
+proc saveCache*(path, content: string) =
   path.parentDir().createDir()
   path.writeFile(content)
 
@@ -35,6 +35,12 @@ proc loadCache*(src: string, ts: Time, expireDays: int = DEFAULT_EXPIRE_DAYS): O
     return none(string)
 
   return some(src.readFile())
+
+
+proc loadCache*(cachePath: string, expireDays: int = DEFAULT_EXPIRE_DAYS): Option[string] =
+  ## Simply using of ``loadCache``.
+  ## - timesampe is current datetime
+  return loadCache(cachePath, now().toTime(), expireDays)
 
 
 proc loadCache*(expireDays: int = DEFAULT_EXPIRE_DAYS): Option[string] =

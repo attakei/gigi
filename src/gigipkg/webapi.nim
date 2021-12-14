@@ -1,6 +1,6 @@
 ## Management access to Web API
 import
-  std/[base64, options, uri],
+  std/[base64, options, os, uri],
   pkg/puppy,
   ./cache
 
@@ -28,10 +28,12 @@ proc fetchContent*(url: string = DEFAULT_WEBAPI_URL): string =
 
 proc fetchContentOrCache*(url: string = DEFAULT_WEBAPI_URL): string =
   ## Fetch raw content from Web API. If cache is available, return it.
-  let cacheContent = loadCache()
+  let
+    cachePath = getAppCacheDir() & DirSep & makeCacheKey(url) & ".json"
+    cacheContent = loadCache(cachePath)
   if cacheContent.isSome():
     result = cacheContent.get()
   else:
     let content = fetchContent(url)
-    saveCache(content)
+    saveCache(cachePath, content)
     result = content
