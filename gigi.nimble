@@ -4,7 +4,7 @@ import
 
 # Package
 
-version       = "0.2.0"
+version       = "0.2.1"
 author        = "Kazuya Takei"
 description   = "GitIgnore Generation Interface"
 license       = "Apache-2.0"
