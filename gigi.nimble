@@ -1,3 +1,7 @@
+import
+  os
+
+
 # Package
 
 version       = "0.2.0"
@@ -17,15 +21,17 @@ requires "puppy >= 1.4.0"
 
 
 task bundle, "Bundle resources for distribution":
-  let binExt =
-    when defined(windows):
-      ".exe"
-    else:
-      ""
-  mkDir("dist")
+  let
+    bundleDir = "gigi-v" & version
+    binExt =
+      when defined(windows):
+        ".exe"
+      else:
+        ""
+  mkDir(bundleDir)
   for b in bin:
     let src = binDir & "/" & b & binExt
-    let dst = "dist/" & b & binExt
+    let dst = bundleDir & DirSep & b & binExt
     cpFile(src, dst)
   for f in @["LICENSE", "README.md"]:
-    cpFile(f, "dist/" & f)
+    cpFile(f, bundleDir & DirSep & f)

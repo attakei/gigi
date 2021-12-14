@@ -56,14 +56,14 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           type: tar
-          directory: dist/
+          directory: gigi-${{ github.ref_name }}/
           filename: ../gigi-${{ github.ref_name }}_${{ matrix.name }}.tar.gz
       - name: Package(win)
         if: runner.os == 'Windows'
         uses: thedoctor0/zip-release@master
         with:
           type: zip
-          directory: dist/
+          directory: gigi-${{ github.ref_name }}/
           filename: ../gigi-${{ github.ref_name }}_${{ matrix.name }}.zip
       - name: Upload to release(unix)
         if: runner.os != 'Windows'
