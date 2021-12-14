@@ -1,6 +1,6 @@
 ## Management access to Web API
 import
-  std/options,
+  std/[base64, options, uri],
   pkg/puppy,
   ./cache
 
@@ -8,6 +8,14 @@ import
 const
   DEFAULT_WEBAPI_URL* = "https://www.toptal.com/developers/gitignore/api/list?format=json"
   DEFAULT_USER_AGENT  = "gigi web-client"
+
+
+proc makeCacheKey(url: string): string =
+  ## Generate cache key from parts of URL.
+  let
+    parsedUrl = parseUri(url)
+    src = parsedUrl.hostname & "<>" & parsedUrl.query & "<>" & parsedUrl.path
+  return encode(src, true)
 
 
 proc fetchContent*(url: string = DEFAULT_WEBAPI_URL): string =
