@@ -1,26 +1,39 @@
 import
-  std/[json, os, parseopt, strutils, terminal],
+  std/[json, options, os, parseopt, strutils, terminal],
   pkg/puppy,
   ./parser, ./webapi,
   ./subcommands/create
 
 
-proc parseArgs(params: seq[string]): seq[string] =
-  result = @[]
+type
+  Options = ref object of RootObj
+    targets: seq[string]
+      ## Command targets
+    dest: Option[string]
+      ## If value is set, out into file fo dest instead of STDOUT
+
+
+proc parseArgs(params: seq[string]): Options =
+  result = Options(targets: @[], dest: none(string))
   var p = initOptParser(params)
   while true:
     p.next()
     case p.kind:
       of cmdEnd: break
       of cmdLongOption, cmdShortOption:
+        if p.key == "o" or p.key == "out":
+          result.dest = some(p.val)
         discard
       of cmdArgument:
-        result.add(p.key)
+        result.targets.add(p.key)
 
 
 proc main*(): int =
   result = 1
-  var targets = parseArgs(commandLineParams())
+  let
+    options = parseArgs(commandLineParams())
+  var
+    targets = deepCopy(options.targets)
 
   if not isatty(stdin):
     for line in readAll(stdin).strip().split("\n"):
@@ -36,7 +49,13 @@ proc main*(): int =
     let
       content = fetchContentOrCache()
       templates = parseGitignoreTable(content.parseJson())
-    result = createGitignore(templates, targets)
+    var
+      strm =
+        if isNone(options.dest):
+          stdout
+        else:
+          open(options.dest.get(), fmWrite, -1)
+    result = strm.outputGitignore(templates, targets)
   except PuppyError:
     let ex = getCurrentException()
     stderr.writeLine("Failured to fetch ignore templates.")
