@@ -1,5 +1,5 @@
 import
-  std/[json, os, parseopt],
+  std/[json, os, parseopt, strutils, terminal],
   pkg/puppy,
   ./parser, ./webapi,
   ./subcommands/create
@@ -20,7 +20,13 @@ proc parseArgs(params: seq[string]): seq[string] =
 
 proc main*(): int =
   result = 1
-  let targets = parseArgs(commandLineParams())
+  var targets = parseArgs(commandLineParams())
+
+  if not isatty(stdin):
+    for line in readAll(stdin).strip().split("\n"):
+      for token in line.split():
+        if not token.startsWith("#"):
+          targets.add(token)
 
   if targets.len == 0:
     stderr.writeLine("No targets is specified.")
