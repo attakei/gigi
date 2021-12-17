@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - 'docs/*.py'
+      - 'docs/*.rst'
       - 'src/**'
       - 'tests/**'
       - '*.nimble'
@@ -34,3 +36,14 @@ jobs:
       - run: |
           nimble build -Y
           nimble test -Y
+  doctest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - run: |
+          pip install Sphinx
+          make -C docs html
+          make -C docs man
