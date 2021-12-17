@@ -1,12 +1,13 @@
 import
   std/[json, options, os, parseopt, strutils, terminal],
   pkg/puppy,
-  ./parser, ./webapi,
+  ./info, ./parser, ./utils, ./webapi,
   ./subcommands/create
 
 
 type
   Options = ref object of RootObj
+    command: string
     targets: seq[string]
       ## Command targets
     dest: Option[string]
@@ -14,16 +15,18 @@ type
 
 
 proc parseArgs(params: seq[string]): Options =
-  result = Options(targets: @[], dest: none(string))
+  result = Options(command: "create", targets: @[], dest: none(string))
   var p = initOptParser(params)
   while true:
     p.next()
     case p.kind:
       of cmdEnd: break
       of cmdLongOption, cmdShortOption:
+        if p.key == "h" or p.key == "help":
+          result.command = "help"
+          break
         if p.key == "o" or p.key == "out":
           result.dest = some(p.val)
-        discard
       of cmdArgument:
         result.targets.add(p.key)
 
@@ -35,6 +38,16 @@ proc main*(): int =
   var
     targets = deepCopy(options.targets)
 
+  if options.command == "help":
+    result = 0
+    stdout.writeLine(PKG_NAME & " version " & PKG_VERSION)
+    stdout.writeLine("Usage: " & getAppName() & " [-h/--help] [-o/--out output] (TARGETS)")
+    stdout.writeLine("")
+    stdout.writeLine("  -h/--help  Display help text")
+    stdout.writeLine("  -o/--out   Write output instead of STDOUT")
+    stdout.writeLine("  TARGETS    Content targets (space separated)")
+    return
+
   if not isatty(stdin):
     for line in readAll(stdin).strip().split("\n"):
       for token in line.split():
@@ -43,7 +56,7 @@ proc main*(): int =
 
   if targets.len == 0:
     stderr.writeLine("No targets is specified.")
-    return
+    
 
   try:
     let
