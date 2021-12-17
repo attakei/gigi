@@ -1,7 +1,8 @@
 import
-  std/[json, os, parseopt, strutils, tables],
+  std/[json, os, parseopt],
   pkg/puppy,
-  ./gitignore, ./info, ./parser, ./webapi
+  ./parser, ./webapi,
+  ./subcommands/create
 
 
 proc parseArgs(params: seq[string]): seq[string] =
@@ -18,29 +19,23 @@ proc parseArgs(params: seq[string]): seq[string] =
 
 
 proc main*(): int =
+  result = 1
   let targets = parseArgs(commandLineParams())
 
   if targets.len == 0:
     stderr.writeLine("No targets is specified.")
-    return 1
+    return
 
   try:
     let
       content = fetchContentOrCache()
       templates = parseGitignoreTable(content.parseJson())
-    stdout.writeLine("### " & PKG_NAME & " version " & PKG_VERSION)
-    stdout.writeLine("### command with: " & targets.join(" "))
-    for t in targets:
-      if not templates.hasKey(t):
-        stdout.writeLine("## '" & t & "' is not exists")
-        continue
-      stdout.writeLine("")
-      stdout.writeLine(templates[t].output)
+    result = createGitignore(templates, targets)
   except PuppyError:
     let ex = getCurrentException()
     stderr.writeLine("Failured to fetch ignore templates.")
     stderr.writeLine("Please see error messages and check your environment if you need.")
     stderr.writeLine("Message: " & ex.msg)
-    return 1
+    return
 
-  return 0
+  return
