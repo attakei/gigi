@@ -42,6 +42,19 @@ nimblecache/
 htmldocs/
 ```
 
+Support `STDIN` .
+
+```sh
+$ echo nim | gigi
+### GIGI version 0.2.1
+### command with: nim
+
+### Nim ###
+nimcache/
+nimblecache/
+htmldocs/
+```
+
 ## Changelogs
 
 See [CHANGES](./CHANGES.md).
