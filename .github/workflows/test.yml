@@ -21,7 +21,7 @@ jobs:
         nim-version:
           - '1.6.0'
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Cache Nim resources
         id: cache_nim
         uses: actions/cache@v2
