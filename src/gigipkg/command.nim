@@ -2,7 +2,7 @@ import
   std/[json, options, os, parseopt, strutils, terminal],
   pkg/puppy,
   ./info, ./parser, ./utils, ./webapi,
-  ./subcommands/create
+  ./subcommands/[create, tui]
 
 
 type
@@ -29,6 +29,8 @@ proc parseArgs(params: seq[string]): Options =
           result.dest = some(p.val)
       of cmdArgument:
         result.targets.add(p.key)
+  if result.targets.len == 0 and result.command == "create":
+    result.command = "tui"
 
 
 proc main*(): int =
@@ -56,7 +58,6 @@ proc main*(): int =
 
   if targets.len == 0:
     stderr.writeLine("No targets is specified.")
-    
 
   try:
     let
@@ -68,7 +69,10 @@ proc main*(): int =
           stdout
         else:
           open(options.dest.get(), fmWrite, -1)
-    result = strm.outputGitignore(templates, targets)
+    if options.command == "tui":
+      tui.run(templates)
+    else:
+      result = strm.outputGitignore(templates, targets)
   except PuppyError:
     let ex = getCurrentException()
     stderr.writeLine("Failured to fetch ignore templates.")
