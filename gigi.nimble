@@ -16,8 +16,9 @@ binDir        = "bin"
 
 # Dependencies
 
-requires "nim >= 1.6.0"
+requires "nim >= 1.6.6"
 requires "puppy == 1.4.0"
+requires "illwill == 0.3.0"
 
 
 task bundle, "Bundle resources for distribution":
