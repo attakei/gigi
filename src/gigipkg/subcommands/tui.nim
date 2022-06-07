@@ -1,4 +1,4 @@
-import std/[os, tables]
+import std/[algorithm, os, strutils, tables]
 import illwill
 import ../gitignore
 
@@ -8,6 +8,7 @@ type
     tb: TerminalBuffer
     templates: GitignoreTable
     idx: int
+    cursor: int
 
 
 proc initContainer(templates: GitignoreTable): Container =
@@ -15,6 +16,7 @@ proc initContainer(templates: GitignoreTable): Container =
   result.tb = newTerminalBuffer(terminalWidth(), terminalHeight())
   result.templates = templates
   result.idx = 0
+  result.cursor = 0
 
 
 proc show(self: Container) =
@@ -29,7 +31,16 @@ proc show(self: Container) =
     idx += 1
     if idx < self.idx:
       continue
-    self.tb.write(2, pos + 2, tgt)
+    var
+      txt = "[ ] " & self.templates[tgt].name
+    txt &= " ".repeat(terminalWidth() - 4 - txt.len)
+    if pos == self.cursor:
+      self.tb.setForegroundColor(fgBlack)
+      self.tb.setBackgroundColor(bgWhite)
+    else:
+      self.tb.setForegroundColor(fgWhite)
+      self.tb.setBackgroundColor(bgBlack)
+    self.tb.write(2, pos + 2, txt)
     pos += 1
     if pos >= terminalHeight() - 3:
       break
@@ -52,6 +63,11 @@ proc run*(templates: GitignoreTable) =
     case key
     of Key.None: discard
     of Key.Escape, Key.Q: exitProc()
+    of Key.J:
+      container.cursor += 1
+    of Key.K:
+      if container.cursor > 0:
+        container.cursor -= 1
     else:
       discard
     container.show()
