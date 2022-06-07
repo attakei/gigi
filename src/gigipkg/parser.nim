@@ -13,3 +13,4 @@ proc parseGitignoreTable*(src: JsonNode): GitignoreTable =
   result = newGitignoreTable()
   for key, tmpl in src.pairs:
     result[key] = parseGitignore(tmpl)
+  result.sort(system.cmp)

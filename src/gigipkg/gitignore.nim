@@ -9,7 +9,7 @@ type
     name: string
     contents: seq[string]
 
-  GitignoreTable* = TableRef[string, Gitignore]
+  GitignoreTable* = OrderedTableRef[string, Gitignore]
     ## It is alias
 
 
@@ -32,4 +32,4 @@ proc output*(self: Gitignore): string =
 
 proc newGitignoreTable*(): GitignoreTable =
   ## Create empty table for Gitignore entities.
-  result = newTable[string, Gitignore]()
+  result = newOrderedTable[string, Gitignore]()
