@@ -38,7 +38,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Cache Nim resources
         id: cache_nim
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ~/.choosenim
