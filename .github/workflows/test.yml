@@ -17,18 +17,18 @@ jobs:
           - ubuntu-latest
           - windows-latest
         nim-version:
-          - '1.6.0'
+          - '2.0.0'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Cache Nim resources
         id: cache_nim
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             ~/.choosenim
             ~/.nimble
           key: nimcaches--${{ matrix.os }}-${{ matrix.nim-version }}
-      - uses: jiro4989/setup-nim-action@v1
+      - uses: jiro4989/setup-nim-action@v2
         with:
           nim-version: ${{ matrix.nim-version }}
       - run: |
