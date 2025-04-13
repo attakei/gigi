@@ -16,7 +16,7 @@ binDir        = "bin"
 
 # Dependencies
 
-requires "nim >= 1.6.0"
+requires "nim >= 2.0.0"
 requires "puppy >= 1.4.0"
 
 
