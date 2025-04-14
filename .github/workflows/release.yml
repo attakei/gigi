@@ -44,7 +44,7 @@ jobs:
             ~/.choosenim
             ~/.nimble
           key: nimcaches--${{ matrix.vm }}
-      - uses: jiro4989/setup-nim-action@v1
+      - uses: jiro4989/setup-nim-action@v2
         with:
           nim-version: 1.6.0
       - name: Run main
