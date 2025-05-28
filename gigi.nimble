@@ -6,7 +6,7 @@ import
 
 version       = "0.2.1"
 author        = "Kazuya Takei"
-description   = "GitIgnore Generation Interface"
+description   = "GitIgnore Generate Interface"
 license       = "Apache-2.0"
 srcDir        = "src"
 installExt    = @["nim"]

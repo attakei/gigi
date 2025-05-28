@@ -3,7 +3,7 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/attakei/gigi)](https://nimble.directory/pkg/gigi)
 [![Test](https://github.com/attakei/gigi/actions/workflows/test.yml/badge.svg)](https://github.com/attakei/gigi/actions/workflows/test.yml)
 
-GIGI: GitIgnore Generation Interface
+GIGI: GitIgnore Generate Interface
 
 ## Overview
 
