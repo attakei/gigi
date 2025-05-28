@@ -1,0 +1,10 @@
+---
+# ------
+# Settings for validation aqua files.
+# ------
+registries:
+  - name: local
+    type: local
+    path: ../../../aqua/registry.yaml
+packages:
+  - registry: local

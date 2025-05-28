@@ -1,0 +1,19 @@
+packages:
+  - type: github_release
+    repo_owner: attakei
+    repo_name: gigi
+    description: "GIGI: GitIgnore Generate Interface"
+    version_constraint: "false"
+    version_overrides:
+      - version_constraint: "true"
+        asset: gigi-{{.Version}}_{{.OS}}.{{.Format}}
+        format: tar.gz
+        replacements:
+          darwin: macosx
+        overrides:
+          - goos: windows
+            format: zip
+        supported_envs:
+          - darwin
+          - windows
+          - amd64
