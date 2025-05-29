@@ -7,6 +7,7 @@ on:
       - 'src/**'
       - 'tests/**'
       - '*.nimble'
+      - '.github/workflows/test.yml'
 
 jobs:
   test:
@@ -15,11 +16,18 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
+          - macos-latest
           - windows-latest
         nim-version:
           - '2.0.0'
+          - '2.0.14'
+          - '2.2.0'
+          - '2.2.2'
     steps:
-      - uses: actions/checkout@v4
+      - uses: 'actions/checkout@v4'
+      - uses: aquaproj/aqua-installer@9ebf656952a20c45a5d66606f083ff34f58b8ce0 # v4.0.0
+        with:
+          aqua_version: v2.43.1
       - name: Cache Nim resources
         id: cache_nim
         uses: actions/cache@v4
@@ -27,10 +35,9 @@ jobs:
           path: |
             ~/.choosenim
             ~/.nimble
-          key: nimcaches--${{ matrix.os }}-${{ matrix.nim-version }}
+          key: 'nimcaches--${{ matrix.os }}-${{ matrix.nim-version }}'
       - uses: jiro4989/setup-nim-action@v2
         with:
           nim-version: ${{ matrix.nim-version }}
       - run: |
-          nimble build -Y
           nimble test -Y
