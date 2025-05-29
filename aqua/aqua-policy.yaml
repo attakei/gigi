@@ -1,0 +1,16 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/main/json-schema/policy.json
+# aqua Policy
+# https://aquaproj.github.io/
+registries:
+  - type: standard
+    ref: semver(">= 3.0.0")
+  - name: attakei-age
+    type: github_content
+    repo_owner: attakei
+    repo_name: age
+    ref: v0.10.2
+    path: registry.yaml
+packages:
+  - registry: standard
+  - registry: attakei-age

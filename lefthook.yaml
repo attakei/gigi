@@ -1,0 +1,7 @@
+pre-commit:
+  parallel: true
+  commands:
+    nph:
+      glob: '*.nim'
+      run: 'nph {staged_files}'
+      stage_fixed: true

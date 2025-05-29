@@ -1,0 +1,21 @@
+version: '3'
+
+tasks:
+  setup:
+    desc: 'Setup workspace'
+    cmds:
+      - 'nimble install -d'
+      - 'nimble install nph'
+      - 'lefthook install'
+  verify:
+    desc: 'Verify environment by all procs'
+    cmds:
+      - 'lefthook run pre-commit --all-files'
+      - 'nimble test'
+  release-*:
+    desc: 'Run release process'
+    vars:
+      LEVEL: '{{index .MATCH 0}}'
+    cmds:
+      - 'nimble run -- {{.LEVEL}}'
+      - 'uv sync --all-groups --all-extras'  # To write out as lock-file
