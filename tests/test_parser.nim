@@ -1,9 +1,7 @@
-import
-  std/[json, strutils, tables, unittest],
-  gigipkg/gitignore, gigipkg/parser {.all.}
+import std/[json, strutils, tables, unittest], gigipkg/gitignore, gigipkg/parser {.all.}
 
-
-let data = parseJson("""{
+let data = parseJson(
+  """{
   "nim": {
     "fileName": "Nim.gitignore",
     "key": "nim",
@@ -11,14 +9,13 @@ let data = parseJson("""{
     "name": "Nim"
   }
 }
-""")
-
+"""
+)
 
 test "Parse content":
   let gi = parseGitignore(data["nim"])
   check gi.name == "Nim"
   check gi.output.splitLines.len == 4
-
 
 test "Parse contents":
   let table = parseGitignoreTable(data)

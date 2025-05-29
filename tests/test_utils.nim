@@ -1,7 +1,4 @@
-import
-  std/unittest,
-  gigipkg/utils {.all.}
-
+import std/unittest, gigipkg/utils {.all.}
 
 suite "getAppName":
   test "Get name":
