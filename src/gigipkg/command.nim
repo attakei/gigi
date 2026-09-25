@@ -1,47 +1,45 @@
 import
   std/[json, options, os, parseopt, strutils, terminal],
   pkg/puppy,
-  ./info, ./parser, ./utils, ./webapi,
+  ./info,
+  ./parser,
+  ./utils,
+  ./webapi,
   ./subcommands/create
 
-
-type
-  Options = ref object of RootObj
-    command: string
-    targets: seq[string]
-      ## Command targets
-    dest: Option[string]
-      ## If value is set, out into file fo dest instead of STDOUT
-
+type Options = ref object of RootObj
+  command: string
+  targets: seq[string] ## Command targets
+  dest: Option[string] ## If value is set, out into file fo dest instead of STDOUT
 
 proc parseArgs(params: seq[string]): Options =
   result = Options(command: "create", targets: @[], dest: none(string))
   var p = initOptParser(params)
   while true:
     p.next()
-    case p.kind:
-      of cmdEnd: break
-      of cmdLongOption, cmdShortOption:
-        if p.key == "h" or p.key == "help":
-          result.command = "help"
-          break
-        if p.key == "o" or p.key == "out":
-          result.dest = some(p.val)
-      of cmdArgument:
-        result.targets.add(p.key)
-
+    case p.kind
+    of cmdEnd:
+      break
+    of cmdLongOption, cmdShortOption:
+      if p.key == "h" or p.key == "help":
+        result.command = "help"
+        break
+      if p.key == "o" or p.key == "out":
+        result.dest = some(p.val)
+    of cmdArgument:
+      result.targets.add(p.key)
 
 proc main*(): int =
   result = 1
-  let
-    options = parseArgs(commandLineParams())
-  var
-    targets = deepCopy(options.targets)
+  let options = parseArgs(commandLineParams())
+  var targets = deepCopy(options.targets)
 
   if options.command == "help":
     result = 0
     stdout.writeLine(PKG_NAME & " version " & PKG_VERSION)
-    stdout.writeLine("Usage: " & getAppName() & " [-h/--help] [-o/--out output] (TARGETS)")
+    stdout.writeLine(
+      "Usage: " & getAppName() & " [-h/--help] [-o/--out output] (TARGETS)"
+    )
     stdout.writeLine("")
     stdout.writeLine("  -h/--help  Display help text")
     stdout.writeLine("  -o/--out   Write output instead of STDOUT")
@@ -56,23 +54,23 @@ proc main*(): int =
 
   if targets.len == 0:
     stderr.writeLine("No targets is specified.")
-    
 
   try:
     let
       content = fetchContentOrCache()
       templates = parseGitignoreTable(content.parseJson())
-    var
-      strm =
-        if isNone(options.dest):
-          stdout
-        else:
-          open(options.dest.get(), fmWrite, -1)
+    var strm =
+      if isNone(options.dest):
+        stdout
+      else:
+        open(options.dest.get(), fmWrite, -1)
     result = strm.outputGitignore(templates, targets)
   except PuppyError:
     let ex = getCurrentException()
     stderr.writeLine("Failured to fetch ignore templates.")
-    stderr.writeLine("Please see error messages and check your environment if you need.")
+    stderr.writeLine(
+      "Please see error messages and check your environment if you need."
+    )
     stderr.writeLine("Message: " & ex.msg)
     return
 

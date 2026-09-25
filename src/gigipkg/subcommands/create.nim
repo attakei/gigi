@@ -2,12 +2,11 @@
 # =====================
 #
 # Output gitignore text.
-import
-  std/[strutils, tables],
-  ../gitignore, ../info
+import std/[strutils, tables], ../gitignore, ../info
 
-
-proc outputGitignore*(strm: var File, templates: GitignoreTable, targets: seq[string]): int =
+proc outputGitignore*(
+    strm: var File, templates: GitignoreTable, targets: seq[string]
+): int =
   ## Create gitignore text into STDOUT.
   result = 1
   strm.writeLine("### " & PKG_NAME & " version " & PKG_VERSION)

@@ -1,7 +1,4 @@
-import
-  std/[options, os, tempfiles, times, unittest],
-  gigipkg/cache {.all.}
-
+import std/[options, os, tempfiles, times, unittest], gigipkg/cache {.all.}
 
 suite "loadCache":
   let
@@ -20,7 +17,6 @@ suite "loadCache":
     let cached = loadCache(tmpFilepath, now().toTime(), 7)
     check isSome(cached)
     check cached.get() == "content"
-
 
 suite "saveCache":
   let
