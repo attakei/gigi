@@ -1,0 +1,19 @@
+---
+pre-commit:
+  parallel: true
+  jobs:
+    - name: 'EditorConfig'
+      glob: '*.*'
+      run: 'ec {staged_files}'
+    - name: 'Nim'
+      glob: '*.nim'
+      run: 'nph {staged_files}'
+      stage_fixed: true
+    - name: 'YAML'
+      glob: '*.yaml'
+      run: 'ryl {staged_files}'
+      stage_fixed: true
+    - name: 'GitHub Actions'
+      glob: '.github/workflows/*.yaml'
+      run: 'actionlint {staged_files}'
+      stage_fixed: true

@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/main/json-schema/aqua-yaml.json
+# aqua - Declarative CLI Version Manager
+# https://aquaproj.github.io/
+# checksum:
+#   enabled: true
+#   require_checksum: true
+#   supported_envs:
+#   - all
+registries:
+  - type: standard
+    ref: semver(">= 4.0.0")
+  - name: nimble-tools
+    type: github_content
+    repo_owner: attakei
+    repo_name: nimble-tools
+    path: registry.yaml
+packages:
+  - registry: standard
+  - registry: nimble-tools

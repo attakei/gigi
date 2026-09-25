@@ -1,0 +1,33 @@
+ignore = [
+    # aquqによる自動編集が入るので、チェック対象外とする。
+    "aqua.yaml",
+]
+
+[files]
+yaml = [
+    "*.yaml",
+    "*.yml",
+    ".yamllint",
+]
+
+[rules.line-length]
+# TODO: 暫定値なので、もう少し短くする。
+max = 150
+
+[rules.comments]
+level = "warning"
+
+[rules.comments-indentation]
+level = "warning"
+
+[rules.document-start]
+level = "warning"
+
+[rules.truthy]
+level = "warning"
+
+[[per-line-ignores]]
+path = "./.github/workflows/*.yaml"
+rules = [
+    "truthy",
+]

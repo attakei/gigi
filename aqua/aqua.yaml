@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/aquaproj/aqua/main/json-schema/aqua-yaml.json
+# aqua - Declarative CLI Version Manager
+# https://aquaproj.github.io/
+# checksum:
+#   enabled: true
+#   require_checksum: true
+#   supported_envs:
+#   - all
+registries:
+- type: standard
+  ref: v4.558.1 # renovate: depName=aquaproj/aqua-registry
+- name: nimble-tools
+  type: github_content
+  repo_owner: attakei
+  repo_name: nimble-tools
+  ref: v0.0.20260921
+  path: registry.yaml
+packages:
+- name: nim-lang/langserver@v1.14.0
+  registry: nimble-tools
+- name: arnetheduck/nph@v0.7.0
+  registry: nimble-tools
+- name: go-task/task@v3.53.1
+- name: evilmartians/lefthook@v2.1.14
+- name: editorconfig-checker/editorconfig-checker@v3.11.3
+- name: owenlamont/ryl@v0.22.0
+- name: rhysd/actionlint@v1.7.12

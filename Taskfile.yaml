@@ -1,0 +1,9 @@
+---
+version: '3'
+
+tasks:
+  setup:
+    desc: 'Setup workspace'
+    cmds:
+      - 'nimble install -d'
+      - 'lefthook install'
