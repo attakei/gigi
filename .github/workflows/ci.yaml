@@ -1,4 +1,5 @@
-name: Test
+---
+name: Run standard CI
 
 on:
   workflow_dispatch:
@@ -17,7 +18,7 @@ jobs:
           - ubuntu-latest
           - windows-latest
         nim-version:
-          - '2.0.0'
+          - '2.2.12'
     steps:
       - uses: actions/checkout@v4
       - name: Cache Nim resources
