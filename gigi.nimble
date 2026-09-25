@@ -4,7 +4,7 @@ import
 
 # Package
 
-version       = "0.2.1"
+version       = "0.3.0-alpha"
 author        = "Kazuya Takei"
 description   = "GitIgnore Generate Interface"
 license       = "Apache-2.0"
@@ -16,7 +16,7 @@ binDir        = "bin"
 
 # Dependencies
 
-requires "nim >= 2.0.0"
+requires "nim >= 2.2.12"
 requires "puppy >= 1.4.0"
 
 
