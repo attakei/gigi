@@ -1,5 +1,6 @@
 ## Context manager
-import std/[appdirs, dirs, files, json, jsonutils, logging, paths, syncio, tables]
+import std/[appdirs, dirs, files, json, jsonutils, paths, syncio, tables]
+import chronicles
 import ./[bucket, settings]
 
 const

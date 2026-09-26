@@ -17,6 +17,7 @@ binDir        = "bin"
 # Dependencies
 
 requires "nim >= 2.2.12"
+requires "chronicles >= 0.12.4"
 requires "puppy >= 1.4.0"
 
 

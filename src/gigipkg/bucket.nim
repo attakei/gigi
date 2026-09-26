@@ -1,5 +1,6 @@
-import std/[logging, osproc, paths]
+import std/[osproc, paths]
 from std/os import findExe, quoteShellCommand
+import chronicles
 
 const CLI_NAME = "git"
 
@@ -21,4 +22,4 @@ proc createBucket*(dest: Path, uri: string, branch: string = "") =
   args.add [uri, dest.string]
   let (output, exitCode) = runGit("clone", args)
   if exitCode != 0:
-    error "Failed to clone bucket"
+    error "Failed to clone bucket", output = output
