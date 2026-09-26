@@ -1,6 +1,6 @@
 ## Context manager
-import std/[appdirs, dirs, files, json, jsonutils, logging, paths, syncio]
-import ./settings
+import std/[appdirs, dirs, files, json, jsonutils, logging, paths, syncio, tables]
+import ./[bucket, settings]
 
 const
   APP_NAME = "gigi"
@@ -28,6 +28,9 @@ proc initContext*(
 proc settingsPath*(ctx: AppContext): Path =
   result = ctx.settingsDir / SETTINGS_FILENAME
 
+proc bucketDir*(ctx: AppContext, name: string): Path =
+  result = ctx.dataDir / "buckets" / name
+
 proc init*(ctx: AppContext) =
   debug "Create context folders"
   if not fileExists(ctx.settingsDir):
@@ -37,3 +40,5 @@ proc init*(ctx: AppContext) =
   debug "Initialize settings"
   let settings = createSettings()
   writeFile(ctx.settingsPath().string, $settings.toJson())
+  for name, bucket in settings.buckets.pairs:
+    createBucket(ctx.bucketDir(name), bucket.source, bucket.branch)
