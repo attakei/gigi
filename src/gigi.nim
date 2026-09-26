@@ -1,2 +1,8 @@
+import confutils
+
+type AppConf = object
+  logLevel {.defaultValue: "INFO".}: string
+
 when isMainModule:
-  echo "Replace now"
+  let conf = AppConf.load()
+  echo($conf)
