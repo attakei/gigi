@@ -12,4 +12,6 @@ type AppConf* = object
 proc run*() =
   let conf = AppConf.load()
   setLogLevel(conf.globalOpts.logLevel)
-  echo($conf)
+  case conf.command
+  of Command.init:
+    execInit(conf.initOpts)
