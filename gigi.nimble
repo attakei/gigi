@@ -19,8 +19,6 @@ binDir        = "bin"
 requires "nim >= 2.2.12"
 requires "chronicles >= 0.12.4"
 requires "confutils >= 0.1.1"
-requires "puppy >= 1.4.0"
-
 
 task bundle, "Bundle resources for distribution":
   let

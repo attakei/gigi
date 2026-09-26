@@ -1,13 +1,14 @@
 ---
-name: Run standard CI
+name: 'Run standard CI'
 
 on:
-  workflow_dispatch:
   push:
-    paths:
-      - 'src/**'
-      - 'tests/**'
-      - '*.nimble'
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
