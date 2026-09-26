@@ -17,8 +17,6 @@ binDir        = "bin"
 # Dependencies
 
 requires "nim >= 2.2.12"
-requires "puppy >= 1.4.0"
-
 
 task bundle, "Bundle resources for distribution":
   let
