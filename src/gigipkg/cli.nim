@@ -1,6 +1,7 @@
 import confutils
 import ./cli/commands/[init]
 import ./cli/global
+import ./vendor/chronicles/helpers
 
 type AppConf* = object
   globalOpts {.flatten.}: GlobalOptions
@@ -10,4 +11,5 @@ type AppConf* = object
 
 proc run*() =
   let conf = AppConf.load()
+  setLogLevel(conf.globalOpts.logLevel)
   echo($conf)
