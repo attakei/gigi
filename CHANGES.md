@@ -1,5 +1,18 @@
 # Changelogs
 
+## 0.3.0.alpha
+
+This version is full replaced from v0.2.1
+
+### alpha-1
+
+- Features:
+  - Global:
+    - Use structured logging by chronicles.
+    - Define options to control log level.
+  - `init`(new):
+    - Add subcommand that create workspace files into local environment.
+
 ## 0.2.1
 
 Change internal structure.
