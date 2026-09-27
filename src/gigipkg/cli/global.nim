@@ -6,5 +6,5 @@ type
 
   GlobalOptions* = object
     logLevel* {.
-      defaultValue: "INFO", desc: "Output logging's level", name: "log-level"
+      defaultValue: "WARN", desc: "Output logging's level", name: "log-level"
     .}: string
