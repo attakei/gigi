@@ -67,7 +67,6 @@ jobs:
         with:
           type: zip
           directory: 'dist'
-          path: '${{ env.package_name }}'
           filename: '${{ env.dist_name }}.zip'
       - uses: actions/upload-artifact@v4
         with:
