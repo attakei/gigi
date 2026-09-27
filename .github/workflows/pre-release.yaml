@@ -1,0 +1,92 @@
+name: 'Release binaries'
+
+on:
+  push:
+    tags:
+      - 'pre/v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Emulate version (require "v" prefix)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  setup:
+    runs-on: 'ubuntu-latest'
+    outputs:
+      version: '${{ steps.vars.outputs.version }}'
+      app_name: '${{ steps.vars.outputs.version }}'
+    steps:
+      - name: 'Configure variables'
+        id: vars
+        run: |
+          ref_name="${{ inputs.version || github.ref_name }}"
+          echo "version=${ref_name##*/}" >> "$GITHUB_OUTPUT"
+          echo "appname=${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
+  build:
+    needs: ['setup']
+    runs-on: ${{ matrix.vm }}
+    env:
+      package_name: '${{ needs.setup.outputs.app_name }}-${{ needs.setup.outputs.version }}'
+      dist_name: '${{ needs.setup.outputs.app_name }}-${{ needs.setup.outputs.version }}_${{ matrix.os_name }}_${{ matrix.cpu_name }}'
+    strategy:
+      matrix:
+        include:
+          - vm: ubuntu-latest
+            os_name: 'linux'
+            cpu_name: 'x86-64'
+          - vm: macos-latest
+            os_name: macos
+            cpu_name: 'arm64'
+          - vm: windows-latest
+            os_name: windows
+            cpu_name: 'x86-64'
+    steps:
+      - uses: 'actions/checkout@v4'
+      - name: Cache Nim resources
+        id: cache_nim
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.choosenim
+            ~/.nimble
+          key: nimcaches--${{ matrix.vm }}
+      - uses: 'jiro4989/setup-nim-action@v2'
+        with:
+          nim-version: '2.2.12'
+      - name: 'Build and bundle'
+        run: |
+          nimble build -d:release -Y
+          nimble bundle
+      - name: 'Make archive'
+        uses: thedoctor0/zip-release@master
+        with:
+          type: zip
+          directory: 'dist'
+          path: '${{ env.package_name }}'
+          filename: '${{ env.dist_name }}.zip'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: 'release-${{ env.dist_name }}'
+          path: 'dist/${{ env.dist_name }}.zip'
+  release:
+    if: ${{ github.event_name != 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: 'actions/checkout@v4'
+      - uses: actions/download-artifact@v4
+        with:
+          path: 'dist'
+          merge-multiple: true
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: 'dist/*'
+          draft: false
+          name: Release ${{ github.ref_name }}
+          tag: ${{ github.ref }}
+          prerelease: true
