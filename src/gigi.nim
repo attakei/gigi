@@ -1,2 +1,4 @@
 when isMainModule:
-  echo "Replace now"
+  import ./gigipkg/cli
+
+  cli.run()

@@ -17,6 +17,8 @@ binDir        = "bin"
 # Dependencies
 
 requires "nim >= 2.2.12"
+requires "chronicles >= 0.12.4"
+requires "confutils >= 0.1.1"
 
 task bundle, "Bundle resources for distribution":
   let
