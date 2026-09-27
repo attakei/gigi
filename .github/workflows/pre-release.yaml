@@ -19,14 +19,14 @@ jobs:
     runs-on: 'ubuntu-latest'
     outputs:
       version: '${{ steps.vars.outputs.version }}'
-      app_name: '${{ steps.vars.outputs.version }}'
+      app_name: '${{ steps.vars.outputs.app_name }}'
     steps:
       - name: 'Configure variables'
         id: vars
         run: |
           ref_name="${{ inputs.version || github.ref_name }}"
           echo "version=${ref_name##*/}" >> "$GITHUB_OUTPUT"
-          echo "appname=${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
+          echo "app_name=${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
   build:
     needs: ['setup']
     runs-on: ${{ matrix.vm }}
