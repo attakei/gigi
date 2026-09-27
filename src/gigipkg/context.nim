@@ -8,8 +8,8 @@ const
   SETTINGS_FILENAME = "settings.json"
 
 type AppContext* = object
-  settingsDir: Path
-  dataDir: Path
+  settingsDir*: Path
+  dataDir*: Path
 
 proc `/`(head: Path, tail: string): Path =
   result = head / Path(tail)
@@ -43,3 +43,8 @@ proc init*(ctx: AppContext) =
   writeFile(ctx.settingsPath().string, $settings.toJson())
   for name, bucket in settings.buckets.pairs:
     createBucket(ctx.bucketDir(name), bucket.source, bucket.branch)
+
+proc canCreate*(ctx: AppContext): bool =
+  ## Judge that can it create workspace for context
+  # TODO: Currently, implement is very simple.
+  result = fileExists(ctx.settingsPath) and fileExists(ctx.dataDir)

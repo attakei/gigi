@@ -1,6 +1,7 @@
 import confutils
 import ./cli/commands/[init]
 import ./cli/global
+import ./context
 import ./vendor/chronicles/helpers
 
 type AppConf* = object
@@ -12,6 +13,7 @@ type AppConf* = object
 proc run*() =
   let conf = AppConf.load()
   setLogLevel(conf.globalOpts.logLevel)
+  let ctx = initContext()
   case conf.command
   of Command.init:
-    execInit(conf.initOpts)
+    execInit(ctx, conf.initOpts)
