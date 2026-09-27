@@ -1,5 +1,6 @@
 .nvim.lua
 bin/
+dist/
 var/
 
 ### GIGI version 0.1.0

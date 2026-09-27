@@ -11,7 +11,7 @@ license       = "Apache-2.0"
 srcDir        = "src"
 installExt    = @["nim"]
 bin           = @["gigi"]
-binDir        = "bin"
+binDir        = "dist"
 
 
 # Dependencies
