@@ -7,7 +7,7 @@ Initialize workspace
 
 At first, you have to configure :term:`workspace` on your machine.
 
-.. code:: conosle
+.. code:: console
 
    gigi init
 
