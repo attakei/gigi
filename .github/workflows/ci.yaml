@@ -60,7 +60,7 @@ jobs:
           policy_allow: 'true'
       - name: Configure venv
         run: |
-          uv sync --frozen --docs
+          uv sync --frozen --group=docs
       - name: Build document
         run: |
           task --yes docs:build-linkcheck docs:build-dirhtml
