@@ -32,7 +32,7 @@ proc settingsPath*(ctx: AppContext): Path =
 proc bucketDir*(ctx: AppContext, name: string): Path =
   result = ctx.dataDir / "buckets" / name
 
-proc init*(ctx: AppContext) =
+proc initWorkspace*(ctx: AppContext) =
   debug "Create context folders"
   if not fileExists(ctx.settingsDir):
     createDir(ctx.settingsDir)

@@ -5,6 +5,6 @@ test "Create settings file":
   let
     dir = createTempDir("", "").Path
     ctx = initContext(dir, dir)
-  ctx.init()
+  ctx.initWorkspace()
   check fileExists(ctx.settingsPath)
   check dirExists(ctx.bucketDir("main"))
