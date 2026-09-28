@@ -9,6 +9,7 @@ dev = [
     {include-group = "docs"},
     {include-group = "lint"},
     "esbonio>=2.1.0",
+    "sphinx-autobuild>=2025.8.25",
 ]
 docs = [
     "atsphinx-bulma>=0.4.2",
