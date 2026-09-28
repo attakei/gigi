@@ -11,7 +11,7 @@ trim_trailing_whitespace = false
 
 
 # 2 space indentation
-[*.{nim,nimble,nims,md,rst}]
+[*.{nim,nimble,nims}]
 indent_size = 2
 
 # 4 space indentation
