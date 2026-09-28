@@ -18,4 +18,4 @@ proc execInit*(ctx: AppContext, opts: InitOptions) =
       settingsDir = ctx.settingsDir, dataDir = ctx.dataDir
     echo "Command is canceled."
     return
-  ctx.init()
+  ctx.initWorkspace()
