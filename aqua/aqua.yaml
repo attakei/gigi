@@ -26,3 +26,4 @@ packages:
 - name: editorconfig-checker/editorconfig-checker@v3.11.3
 - name: owenlamont/ryl@v0.22.0
 - name: rhysd/actionlint@v1.7.12
+- name: astral-sh/uv@0.12.19

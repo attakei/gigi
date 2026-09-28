@@ -1,4 +1,7 @@
 ---
+templates:
+  run_python: 'uv run'
+
 pre-commit:
   parallel: true
   jobs:
@@ -17,3 +20,10 @@ pre-commit:
       glob: '.github/workflows/*.yaml'
       run: 'actionlint {staged_files}'
       stage_fixed: true
+    - name: 'reStructuredText'
+      glob: '*.rst'
+      group:
+        parallel: true
+        jobs:
+          - name: 'syntax-check'
+            run: '{run_python} rstcheck {staged_files}'

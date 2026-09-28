@@ -6,4 +6,9 @@ tasks:
     desc: 'Setup workspace'
     cmds:
       - 'nimble install -d'
+      - 'uv sync --frozen'
       - 'lefthook install'
+  setup-ci:
+    desc: 'Setup workspace'
+    cmds:
+      - 'uv sync --frozen --group=lint'
