@@ -8,6 +8,7 @@ You can create ``.gitignore`` of your repository from many templates.
    :maxdepth: 2
 
    usage
+   changelogs
 
 .. toctree::
    :hidden:

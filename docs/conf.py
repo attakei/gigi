@@ -6,7 +6,10 @@ author = "Kazuya Takei"
 release = "0.3.0"
 
 # -- General configuration
-extensions = []
+extensions = [
+    # Third-party extensions
+    "myst_parser",
+]
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
