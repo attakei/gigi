@@ -11,7 +11,20 @@ on:
   workflow_dispatch:
 
 jobs:
+  lint:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v4'
+      - uses: aquaproj/aqua-installer@11dd79b4e498d471a9385aa9fb7f62bb5f52a73c  # v4.0.4
+        with:
+          aqua_version: v2.55.0
+          policy_allow: 'true'
+      - name: 'Configure workspace for ci'
+        run: 'task setup-ci'
+      - name: 'Run linters'
+        run: 'lefthook run pre-commit --all-files'
   test:
+    needs: ['lint']
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
