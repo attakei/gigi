@@ -20,7 +20,7 @@ jobs:
           aqua_version: v2.55.0
           policy_allow: 'true'
       - name: 'Configure workspace for ci'
-        run: 'task setup-ci'
+        run: 'task --yes setup-ci'
       - name: 'Run linters'
         run: 'lefthook run pre-commit --all-files'
   test:
