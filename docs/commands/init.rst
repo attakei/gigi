@@ -28,7 +28,7 @@ Usage
 Options
 =======
 
---clean/-c
+--clean, -c
   It removes old workspace directories befor create.
   Default is ``false``.
 
