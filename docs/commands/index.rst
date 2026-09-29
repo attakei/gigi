@@ -5,3 +5,4 @@ Subcomands
    :maxdepth: 1
 
    init
+   create

@@ -9,6 +9,7 @@ You can create ``.gitignore`` of your repository from many templates.
 
    usage
    commands/index
+   spec/index
    changelogs
 
 .. toctree::
