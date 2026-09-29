@@ -1,5 +1,5 @@
 import confutils
-import ./cli/commands/[init]
+import ./cli/commands/[create, init]
 import ./cli/global
 import ./consts
 import ./context
@@ -10,6 +10,8 @@ type AppConf* = object
   case command {.command.}: Command
   of Command.init:
     initOpts {.flatten.}: InitOptions
+  of Command.create:
+    createOpts {.flatten.}: CreateOptions
 
 proc run*() =
   let conf = AppConf.load(version = APP_VERSION)
@@ -18,3 +20,5 @@ proc run*() =
   case conf.command
   of Command.init:
     execInit(ctx, conf.initOpts)
+  of Command.create:
+    execCreate(ctx, conf.createOpts)
