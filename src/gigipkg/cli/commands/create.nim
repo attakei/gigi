@@ -25,14 +25,14 @@ proc sourceExists(ctx: AppContext, source: Source): bool =
 proc resolveSource(ctx: AppContext, target: string): Option[Source] =
   let parts = target.split(":")
   if len(parts) >= 3:
-    result = none(Source)
+    return none(Source)
   let source =
     if len(parts) == 1:
       Source(bucket: DEFAULT_BUCKET, path: target)
     else:
       Source(bucket: parts[0], path: parts[1])
   if not sourceExists(ctx, source):
-    result = none(Source)
+    return none(Source)
   return some(source)
 
 proc getContent(ctx: AppContext, source: Source): string =
