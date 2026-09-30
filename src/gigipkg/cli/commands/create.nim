@@ -1,4 +1,4 @@
-import std/[files, options, paths, sequtils, strutils, syncio, tables]
+import std/[files, options, paths, sequtils, strutils, syncio]
 import chronicles
 import confutils/defs
 import ../../[consts, context]
@@ -48,19 +48,15 @@ proc execCreate*(ctx: AppContext, opts: CreateOptions) =
   if sources.anyIt(it.isNone):
     error "It requires that all arguments are valid source names"
     return
-  var
-    sourceWithContent = initTable[string, string]()
-    contentLines: seq[string] = @[]
-  for source in sources.mapIt(it.get()):
-    sourceWithContent[$source] = getContent(ctx, source)
+  var contentLines: seq[string] = @[]
 
   block:
     contentLines.add "#:gigi:version: " & APP_VERSION
     contentLines.add "#:gigi:arguments: " & opts.sources.join(" ")
     contentLines.add ""
-    for k, v in sourceWithContent.pairs:
-      contentLines.add "#:gigi:source: " & k
-      contentLines.add v
+    for source in sources.mapIt(it.get()):
+      contentLines.add "#:gigi:source: " & $source
+      contentLines.add getContent(ctx, source)
       contentLines.add ""
 
     contentLines.add "#:gigi:user"
