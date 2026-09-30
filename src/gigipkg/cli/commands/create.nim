@@ -1,7 +1,7 @@
-import std/[files, options, paths, sequtils, strutils, syncio]
+import std/[files, options, paths, sequtils, syncio]
 import chronicles
 import confutils/defs
-import ../../[consts, context, source]
+import ../../[consts, context, gitignore, source]
 
 type CreateOptions* = object
   dest* {.defaultValue: ".gitignore", desc: "Output path".}: string
@@ -19,17 +19,10 @@ proc execCreate*(ctx: AppContext, opts: CreateOptions) =
   if sources.anyIt(it.isNone):
     error "It requires that all arguments are valid source names"
     return
-  var contentLines: seq[string] = @[]
-
-  block:
-    contentLines.add "#:gigi:version: " & APP_VERSION
-    contentLines.add "#:gigi:arguments: " & opts.sources.join(" ")
-    contentLines.add ""
-    for source in sources.mapIt(it.get()):
-      contentLines.add "#:gigi:source: " & $source
-      contentLines.add ctx.readContent(source)
-      contentLines.add ""
-
-    contentLines.add "#:gigi:user"
-
-  writeFile(dest.string, contentLines.join("\n"))
+  let doc = GitignoreDoc(
+    version: APP_VERSION,
+    arguments: opts.sources,
+    sections:
+      sources.mapIt(SourceSection(source: it.get(), content: ctx.readContent(it.get()))),
+  )
+  writeFile(dest.string, doc.render())
