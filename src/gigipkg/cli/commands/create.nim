@@ -18,6 +18,7 @@ proc execCreate*(ctx: AppContext, opts: CreateOptions) =
     return
   if sources.anyIt(it.isNone):
     error "It requires that all arguments are valid source names"
+    echo "Command is canceled."
     return
   let doc = GitignoreDoc(
     version: APP_VERSION,
