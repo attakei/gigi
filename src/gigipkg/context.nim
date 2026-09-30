@@ -11,7 +11,7 @@ type AppContext* = object
   settingsDir*: Path
   dataDir*: Path
 
-proc `/`(head: Path, tail: string): Path =
+proc `/`*(head: Path, tail: string): Path =
   result = head / Path(tail)
 
 proc getAppSettingsDir*(): Path =
