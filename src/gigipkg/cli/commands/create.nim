@@ -6,7 +6,7 @@ import ../../[consts, context]
 type
   CreateOptions* = object
     dest* {.defaultValue: ".gitignore", desc: "Output path".}: string
-    force* {.defaultValue: false, desc: "Save file forcely".}: bool
+    force* {.abbr: "f", defaultValue: false, desc: "Save file forcely".}: bool
     sources* {.argument, desc: "Target sources".}: seq[string]
 
   Source = object
@@ -45,6 +45,10 @@ proc execCreate*(ctx: AppContext, opts: CreateOptions) =
   let
     dest = Path(opts.dest)
     sources = opts.sources.mapIt(resolveSource(ctx, it))
+  if fileExists(dest) and not opts.force:
+    warn "Destination file already exists", dest = dest
+    echo "Command is canceled."
+    return
   if sources.anyIt(it.isNone):
     error "It requires that all arguments are valid source names"
     return
