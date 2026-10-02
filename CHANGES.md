@@ -4,6 +4,14 @@
 
 This version is full replaced from v0.2.1
 
+### v0.3.0a2
+
+2026-10-03 (Asia/Tokyo)
+
+- Features:
+  - `create`(new):
+    - Add subcommand that create `.gitignore` file from workspace's data.
+
 ### v0.3.0a1
 
 2026-09-27 (Asia/Tokyo)

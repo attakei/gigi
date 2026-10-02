@@ -1,4 +1,4 @@
-current_version = "0.3.0a1"
+current_version = "0.3.0a2"
 
 [[files]]
 path = "gigi.nimble"
