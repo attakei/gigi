@@ -1,13 +1,19 @@
-import std/[strutils, unittest]
-import gigipkg/[gitignore, source]
+import std/[paths, strutils, unittest]
+import gigipkg/[bucket, gitignore, source]
 
 test "Render document":
   let doc = GitignoreDoc(
     version: "0.3.0",
     arguments: @["Nim", "github:Python"],
     sections: @[
-      SourceSection(source: Source(bucket: "github", path: "Nim"), content: "nimcache/"),
-      SourceSection(source: Source(bucket: "github", path: "Python"), content: "*.pyc"),
+      SourceSection(
+        source: Source(bucket: initBucket(Path("github")), path: "Nim"),
+        content: "nimcache/",
+      ),
+      SourceSection(
+        source: Source(bucket: initBucket(Path("github")), path: "Python"),
+        content: "*.pyc",
+      ),
     ],
   )
   let expected = [

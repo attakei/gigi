@@ -24,6 +24,6 @@ proc execCreate*(ctx: AppContext, opts: CreateOptions) =
     version: APP_VERSION,
     arguments: opts.sources,
     sections:
-      sources.mapIt(SourceSection(source: it.get(), content: ctx.readContent(it.get()))),
+      sources.mapIt(SourceSection(source: it.get(), content: readContent(it.get()))),
   )
   writeFile(dest.string, doc.render())
