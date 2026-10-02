@@ -1,9 +1,10 @@
+---
 name: 'Release binaries'
 
 on:
   push:
     tags:
-      - 'pre/v*.*.*'
+      - 'v*.*.*'
   workflow_dispatch:
     inputs:
       version:
@@ -20,13 +21,23 @@ jobs:
     outputs:
       version: '${{ steps.vars.outputs.version }}'
       app_name: '${{ steps.vars.outputs.app_name }}'
+      prerelease: '${{ steps.vars.outputs.prerelease }}'
     steps:
       - name: 'Configure variables'
         id: vars
         run: |
           ref_name="${{ inputs.version || github.ref_name }}"
-          echo "version=${ref_name##*/}" >> "$GITHUB_OUTPUT"
+          version="${ref_name##*/}"
+          # Treat as pre-release when the PATCH part and after (as semver) is not purely numeric
+          patch_and_after="$(echo "${version#v}" | cut -d. -f3-)"
+          if [[ "${patch_and_after}" =~ ^[0-9]+$ ]]; then
+            prerelease=false
+          else
+            prerelease=true
+          fi
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
           echo "app_name=${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
+          echo "prerelease=${prerelease}" >> "$GITHUB_OUTPUT"
   build:
     needs: ['setup']
     runs-on: ${{ matrix.vm }}
@@ -87,6 +98,6 @@ jobs:
           artifacts: 'dist/*'
           draft: false
           tag: ${{ github.ref }}
-          prerelease: true
+          prerelease: ${{ needs.setup.outputs.prerelease }}
           name: '${{ needs.setup.outputs.app_name }}-${{ needs.setup.outputs.version }}'
           body: 'Please see [changelogs](https://github.com/attakei/gigi/blob/${{ github.ref_name }}/CHANGES.md)'
