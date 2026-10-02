@@ -1,4 +1,4 @@
-import std/[dirs, paths]
+import std/dirs
 import chronicles
 import confutils/defs
 import ../../context
