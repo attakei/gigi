@@ -4,6 +4,15 @@ import chronicles
 
 const CLI_NAME = "git"
 
+type Bucket* = object
+  path*: Path
+
+proc `$`*(bucket: Bucket): string =
+  result = bucket.path.string
+
+proc name*(bucket: Bucket): string =
+  result = bucket.path.lastPathPart.string
+
 proc runGit(
     command: string, args: seq[string] = @[], workDir: string = ""
 ): tuple[output: string, exitCode: int] =
@@ -15,6 +24,9 @@ proc runGit(
   cmdLine.add args
   result = execCmdEx(quoteShellCommand(cmdLine), workingDir = workDir)
 
+proc initBucket*(path: Path): Bucket =
+  result.path = path
+
 proc createBucket*(dest: Path, uri: string, branch: string = "") =
   var args: seq[string] = @[]
   if branch != "":
@@ -23,3 +35,9 @@ proc createBucket*(dest: Path, uri: string, branch: string = "") =
   let (output, exitCode) = runGit("clone", args)
   if exitCode != 0:
     error "Failed to clone bucket", output = output
+
+proc updateBucket*(bucket: Bucket) =
+  var args = @["pull"]
+  let (output, exitCode) = runGit("pull", workDir = bucket.path.string)
+  if exitCode != 0:
+    error "Failed to update bucket", bucket = bucket, output = output

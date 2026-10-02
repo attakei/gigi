@@ -21,3 +21,6 @@ lint = [
 ]
 
 [tool.rstcheck]
+ignore_directives = [
+    "todo",
+]

@@ -11,7 +11,7 @@ type AppContext* = object
   settingsDir*: Path
   dataDir*: Path
 
-proc `/`(head: Path, tail: string): Path =
+proc `/`*(head: Path, tail: string): Path =
   result = head / Path(tail)
 
 proc getAppSettingsDir*(): Path =
@@ -31,6 +31,9 @@ proc settingsPath*(ctx: AppContext): Path =
 
 proc bucketDir*(ctx: AppContext, name: string): Path =
   result = ctx.dataDir / "buckets" / name
+
+proc initBucket*(ctx: AppContext, name: string): Bucket =
+  result = initBucket(ctx.bucketDir(name))
 
 proc initWorkspace*(ctx: AppContext) =
   debug "Create context folders"

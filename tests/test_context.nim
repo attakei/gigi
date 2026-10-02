@@ -1,5 +1,5 @@
 import std/[dirs, files, paths, tempfiles, unittest]
-import gigipkg/context
+import gigipkg/[consts, context]
 
 test "Create settings file":
   let
@@ -7,4 +7,4 @@ test "Create settings file":
     ctx = initContext(dir, dir)
   ctx.initWorkspace()
   check fileExists(ctx.settingsPath)
-  check dirExists(ctx.bucketDir("main"))
+  check dirExists(ctx.bucketDir(DEFAULT_BUCKET))

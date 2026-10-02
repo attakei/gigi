@@ -5,7 +5,7 @@ const DEFAULT_SETTINGS = """
 {
   "version": 1,
   "buckets": {
-    "main": {
+    "github": {
       "source": "https://github.com/github/gitignore",
       "branch": "main"
     }

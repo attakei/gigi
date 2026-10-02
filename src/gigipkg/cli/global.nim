@@ -3,6 +3,7 @@ import confutils
 type
   Command* = enum
     init = "Initialize workspace"
+    create = "Create Gitignore file"
 
   GlobalOptions* = object
     logLevel* {.
