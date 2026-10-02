@@ -34,16 +34,3 @@ replace = "release = \"{{new_version}}\""
 path = "src/gigipkg/consts.nim"
 search = "  APP_VERSION* = \"{{current_version}}\""
 replace = "  APP_VERSION* = \"{{new_version}}\""
-
-[[files]]
-path = ".github/release-body.md"
-regex = true
-search = """
-- Changelog is https://github.com/attakei/gigi/blob/v{{current_version}}/CHANGES.md
-- You can see source diff to (.+)
-"""
-replace = """
-- Changelog is https://github.com/attakei/gigi/blob/v{{new_version}}/CHANGES.md
-- You can see source diff to https://github.com/attakei/gigi/compare/v{{current_version}}..v{{new_version}}
-"""
-

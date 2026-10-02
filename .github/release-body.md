@@ -1,2 +1,0 @@
-- Changelog is https://github.com/attakei/gigi/blob/v0.3.0a2/CHANGES.md
-- You can see source diff to https://github.com/attakei/gigi/compare/v0.3.0a1..v0.3.0a2
