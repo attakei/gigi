@@ -1,3 +1,3 @@
 const
-  APP_VERSION* = "0.3.0.alpha1"
+  APP_VERSION* = "0.3.0a1"
   DEFAULT_BUCKET* = "github"

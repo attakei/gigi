@@ -6,7 +6,7 @@ from pygments.token import Comment, Keyword, Name, Operator, Punctuation, String
 project = "gigi"
 copyright = "2026, Kazuya Takei"
 author = "Kazuya Takei"
-release = "0.3.0"
+release = "0.3.0a1"
 
 # -- General configuration
 extensions = [

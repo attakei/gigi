@@ -1,10 +1,12 @@
 # Changelogs
 
-## 0.3.0.alpha
+## v0.3.0a
 
 This version is full replaced from v0.2.1
 
-### alpha-1
+### v0.3.0a1
+
+2026-09-27 (Asia/Tokyo)
 
 - Features:
   - Global:

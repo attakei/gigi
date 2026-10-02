@@ -22,3 +22,10 @@ tasks:
     desc: 'Setup workspace'
     cmds:
       - 'uv sync --frozen --group=lint'
+  release-*:
+    desc: 'Run edit to update version'
+    vars:
+      LEVEL: '{{index .MATCH 0}}'
+    cmds:
+      - 'age {{.LEVEL}}'
+      - 'uv sync --all-groups' # To write out as lock-file

@@ -1,0 +1,49 @@
+current_version = "0.3.0a1"
+
+[[files]]
+path = "gigi.nimble"
+search = "version       = \"{{current_version}}\""
+replace = "version       = \"{{new_version}}\""
+
+[[files]]
+path = "pyproject.toml"
+search = "version = \"{{current_version}}\""
+replace = "version = \"{{new_version}}\""
+
+[[files]]
+path = "CHANGES.md"
+search = """
+### v{{current_version}}
+"""
+replace = """
+### v{{new_version}}
+
+{{nowFormat.dateISO}} (Asia/Tokyo)
+
+### v{{current_version}}
+"""
+
+
+
+[[files]]
+path = "docs/conf.py"
+search = "release = \"{{current_version}}\""
+replace = "release = \"{{new_version}}\""
+
+[[files]]
+path = "src/gigipkg/consts.nim"
+search = "  APP_VERSION* = \"{{current_version}}\""
+replace = "  APP_VERSION* = \"{{new_version}}\""
+
+[[files]]
+path = ".github/release-body.md"
+regex = true
+search = """
+- Changelog is https://github.com/attakei/gigi/blob/v{{current_version}}/CHANGES.md
+- You can see source diff to (.+)
+"""
+replace = """
+- Changelog is https://github.com/attakei/gigi/blob/v{{new_version}}/CHANGES.md
+- You can see source diff to https://github.com/attakei/gigi/compare/v{{current_version}}..v{{new_version}}
+"""
+
