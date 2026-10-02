@@ -26,8 +26,7 @@ level = "warning"
 [rules.truthy]
 level = "warning"
 
-[[per-line-ignores]]
-path = "./.github/workflows/*.yaml"
-rules = [
+[per-file-ignores]
+".github/workflows/*" = [
     "truthy",
 ]

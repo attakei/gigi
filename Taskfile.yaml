@@ -28,4 +28,4 @@ tasks:
       LEVEL: '{{index .MATCH 0}}'
     cmds:
       - 'age {{.LEVEL}}'
-      - 'uv sync --all-groups' # To write out as lock-file
+      - 'uv sync --all-groups'  # To write out as lock-file
