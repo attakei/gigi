@@ -29,7 +29,9 @@ proc execCreate*(ctx: AppContext, opts: CreateOptions) =
     return
   let resolvedSources = sources.mapIt(it.get())
   if opts.update:
+    trace "Updating buckets before generate destination files"
     for bucket in collectTargetBuckets(resolvedSources):
+      trace "Updating bucket", bucket = bucket
       bucket.updateBucket
   let doc = GitignoreDoc(
     version: APP_VERSION,
