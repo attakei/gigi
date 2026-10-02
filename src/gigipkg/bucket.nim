@@ -35,3 +35,9 @@ proc createBucket*(dest: Path, uri: string, branch: string = "") =
   let (output, exitCode) = runGit("clone", args)
   if exitCode != 0:
     error "Failed to clone bucket", output = output
+
+proc updateBucket*(bucket: Bucket) =
+  var args = @["pull"]
+  let (output, exitCode) = runGit("pull", workDir = bucket.path.string)
+  if exitCode != 0:
+    error "Failed to update bucket", bucket = bucket, output = output

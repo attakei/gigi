@@ -29,6 +29,9 @@ Options
 --force, -f
   Overwrite ``.gitignore`` file even if it already exists.
   Default is ``false``.
+--update, -u
+  Update buckets of target sources before generate file.
+  Default is ``false``.
 
 Usecases
 ========
