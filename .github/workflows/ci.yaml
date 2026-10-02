@@ -14,11 +14,8 @@ jobs:
   lint:
     runs-on: 'ubuntu-latest'
     steps:
-      - uses: 'actions/checkout@v4'
-      - uses: aquaproj/aqua-installer@11dd79b4e498d471a9385aa9fb7f62bb5f52a73c  # v4.0.4
-        with:
-          aqua_version: v2.55.0
-          policy_allow: 'true'
+      - uses: 'actions/checkout@v6'
+      - uses: './.github/actions/setup-aqua'
       - name: 'Configure workspace for ci'
         run: 'task --yes setup-ci'
       - name: 'Run linters'
@@ -34,16 +31,8 @@ jobs:
         nim-version:
           - '2.2.12'
     steps:
-      - uses: actions/checkout@v4
-      - name: Cache Nim resources
-        id: cache_nim
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.choosenim
-            ~/.nimble
-          key: nimcaches--${{ matrix.os }}-${{ matrix.nim-version }}
-      - uses: jiro4989/setup-nim-action@v2
+      - uses: 'actions/checkout@v6'
+      - uses: './.github/actions/setup-nim'
         with:
           nim-version: ${{ matrix.nim-version }}
       - run: |
@@ -53,11 +42,8 @@ jobs:
     needs: ['lint']
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: aquaproj/aqua-installer@9ebf656952a20c45a5d66606f083ff34f58b8ce0  # v4.0.0
-        with:
-          aqua_version: v2.55.0
-          policy_allow: 'true'
+      - uses: 'actions/checkout@v6'
+      - uses: './.github/actions/setup-aqua'
       - name: Configure venv
         run: |
           uv sync --frozen --group=docs
