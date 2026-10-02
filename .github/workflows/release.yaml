@@ -35,9 +35,11 @@ jobs:
           else
             prerelease=true
           fi
-          echo "version=${version}" >> "$GITHUB_OUTPUT"
-          echo "app_name=${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
-          echo "prerelease=${prerelease}" >> "$GITHUB_OUTPUT"
+          {
+            echo "version=${version}"
+            echo "app_name=${{ github.event.repository.name }}"
+            echo "prerelease=${prerelease}"
+          } >> "$GITHUB_OUTPUT"
   build:
     needs: ['setup']
     runs-on: ${{ matrix.vm }}
