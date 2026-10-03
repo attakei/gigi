@@ -15,7 +15,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     steps:
       - uses: 'actions/checkout@v6'
-      - uses: './.github/actions/setup-aqua'
+      - uses: 'attakei/devkit/actions/setup-aqua@main'
       - name: 'Configure workspace for ci'
         run: 'task --yes setup-ci'
       - name: 'Run linters'
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: 'actions/checkout@v6'
-      - uses: './.github/actions/setup-aqua'
+      - uses: 'attakei/devkit/actions/setup-aqua@main'
       - name: Configure venv
         run: |
           uv sync --frozen --group=docs
