@@ -1,16 +1,19 @@
-.nvim.lua
-.task/
-bin/
-dist/
-var/
+#:gigi:version: 0.3.0a2
+#:gigi:arguments: Nim
 
-### GIGI version 0.1.0
-### command with: nim
-
-### Nim ###
+#:gigi:source: github:Nim
 nimcache/
 nimblecache/
 htmldocs/
+
+
+#:gigi:user
+# Misc
+dist/
+var/
+# Nimble
 nimble.develop
 nimble.paths
 nimbledeps
+# Taskfile
+.task
